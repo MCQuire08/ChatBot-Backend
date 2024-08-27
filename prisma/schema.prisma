@@ -9,7 +9,43 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
   name      String?
+  email     String   @unique
+  createdAt DateTime @default(now())
+  conversations Conversation[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  category    String?
+  stock       Int
+  createdAt   DateTime @default(now())
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  messages  Message[]
   createdAt DateTime @default(now())
 }
+
+model Message {
+  id            Int      @id @default(autoincrement())
+  conversationId Int
+  conversation  Conversation @relation(fields: [conversationId], references: [id])
+  content       String
+  sender        String    // Puede ser 'user' o 'bot'
+  timestamp     DateTime  @default(now())
+}
+
+model Response {
+  id        Int      @id @default(autoincrement())
+  trigger   String   // Palabra clave o patrón que activa la respuesta
+  reply     String   // Respuesta que el chatbot debe enviar
+  createdAt DateTime @default(now())
+}
+
