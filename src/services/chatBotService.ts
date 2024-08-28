@@ -1,19 +1,5 @@
 import prisma from '../models/prismaClient';
-
-interface CreateConversationData {
-  userId: number;
-}
-
-export const createConversation = async (data: CreateConversationData) => {
-  return await prisma.conversation.create({
-    data: {
-      userId: data.userId,
-    },
-    include: {
-      messages: true,
-    },
-  });
-};
+import { getBotResponse } from '../logic/chatBotLogic';
 
 interface CreateMessageData {
   conversationId: number;
@@ -21,21 +7,57 @@ interface CreateMessageData {
   sender: 'user' | 'bot';
 }
 
+export const getUserConversation = async (userId: string) => {
+  let conversation = await prisma.conversation.findFirst({
+    where: {
+      userId: 1,
+    },
+    include: {
+      messages: true,
+      user: true,
+    },
+  });
+
+  if (!conversation) {
+    conversation = await prisma.conversation.create({
+      data: {
+        userId: 1,
+      },
+      include: {
+        messages: true,
+        user: true,
+      },
+    });
+  }
+
+  return conversation;
+};
+
 export const createMessage = async (data: CreateMessageData) => {
-  return await prisma.message.create({
+  const userMessage = await prisma.message.create({
     data: {
       conversationId: data.conversationId,
       content: data.content,
       sender: data.sender,
     },
   });
-};
 
-export const getAllConversations = async () => {
-  return await prisma.conversation.findMany({
-    include: {
-      messages: true,
-      user: true,
-    },
-  });
+  let botResponse: string | null = null;
+
+  if (data.sender === 'user') {
+    botResponse = getBotResponse(data.content);
+
+    await prisma.message.create({
+      data: {
+        conversationId: data.conversationId,
+        content: botResponse,
+        sender: 'bot',
+      },
+    });
+  }
+
+  return {
+    userMessage,
+    botResponse: botResponse || null,
+  };
 };
