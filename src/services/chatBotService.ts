@@ -45,7 +45,7 @@ export const createMessage = async (data: CreateMessageData) => {
   let botResponse: string | null = null;
 
   if (data.sender === 'user') {
-    botResponse = getBotResponse(data.content);
+    botResponse = await getBotResponse(data.content);
 
     await prisma.message.create({
       data: {

@@ -5,6 +5,26 @@ interface CreateResponseData {
   reply: string;
 }
 
+export const findResponseByTrigger = async (trigger: string) => {
+    try {
+        const responses = await prisma.response.findMany({
+            where: {
+                trigger: {
+                    contains: trigger,
+                }
+            }
+        });
+
+        const filteredResponses = responses.filter(response => 
+            response.trigger.toLowerCase().includes(trigger.toLowerCase())
+        );
+
+        return filteredResponses.length > 0 ? filteredResponses[0] : null;
+    } catch (error) {
+        console.error('Error fetching response:', error);
+        throw error;
+    }
+};
 export const createResponse = async (data: CreateResponseData) => {
   try {
     const newResponse = await prisma.response.create({

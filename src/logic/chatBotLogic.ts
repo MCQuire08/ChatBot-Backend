@@ -1,11 +1,16 @@
-export const getBotResponse = (userMessage: string): string => {
-    const lowerCaseMessage = userMessage.toLowerCase();
-    
-    if (lowerCaseMessage.includes('hello')) {
-        return 'Hello! How can I assist you today?';
-    } else if (lowerCaseMessage.includes('help')) {
-        return 'I am here to help you! What do you need assistance with?';
-    }
+import prisma from '../models/prismaClient';
 
-    return "I'm not sure how to respond to that. Can you try asking in a different way?";
-};
+export const getBotResponse = async (userMessage: string): Promise<string> => {
+    const lowerCaseMessage = userMessage.toLowerCase();
+  
+    const response = await prisma.response.findFirst({
+      where: {
+        trigger: {
+          equals: lowerCaseMessage, 
+        },
+      },
+    });
+  
+    return response ? response.reply : "No estoy seguro de cómo responder a eso. ¿Podrías intentar preguntar de otra manera?";
+  };
+  
