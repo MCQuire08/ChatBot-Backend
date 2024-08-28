@@ -3,11 +3,14 @@
     "target": "ES6",                 // Configura el target a ES6
     "module": "commonjs",            // Usa el módulo commonjs para Node.js
     "outDir": "./dist",              // Directorio de salida para archivos JavaScript compilados
-    "rootDir": "./src",              // Directorio raíz para archivos TypeScript
+    "rootDir": "./",              // Directorio raíz para archivos TypeScript
     "strict": true,                  // Activa todas las opciones de comprobación estricta
     "esModuleInterop": true,         // Permite la importación de módulos CommonJS
     "skipLibCheck": true             // Omite la comprobación de tipos de archivos de declaración de biblioteca
   },
-  "include": ["src/**/*"],           // Incluye todos los archivos TypeScript en el directorio src
+  "include": [
+    "src/**/*.ts",
+    "prisma/**/*.ts"
+  ],           // Incluye todos los archivos TypeScript en el directorio src
   "exclude": ["node_modules"]        // Excluye el directorio node_modules
 }
