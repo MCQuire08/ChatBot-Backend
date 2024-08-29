@@ -21,8 +21,6 @@ export const getBotResponse = async (userMessage: string): Promise<string> => {
         let productNameFragment = lowerCaseMessage.replace(/.*precio\s*/, '').trim();
         productNameFragment = removeStopWords(productNameFragment.replace(/[^\w\s]/gi, ''));
 
-        console.log(`Product name fragment: "${productNameFragment}"`);
-
         const products = await prisma.product.findMany({
             where: {
                 name: {
@@ -41,8 +39,6 @@ export const getBotResponse = async (userMessage: string): Promise<string> => {
     else if (lowerCaseMessage.includes('tienen')) {
         let categoryFragment = lowerCaseMessage.replace(/.*tienen\s*/, '').trim();
         categoryFragment = removeStopWords(categoryFragment.replace(/[^\w\s]/gi, ''));
-
-        console.log(`Category fragment: "${categoryFragment}"`);
 
         if (categoryFragment === '') {
             return "Por favor, especifica la categoría que deseas consultar.";
@@ -84,8 +80,6 @@ export const getBotResponse = async (userMessage: string): Promise<string> => {
     else if (lowerCaseMessage.includes('que productos hay en') || lowerCaseMessage.includes('que hay en')) {
         let categoryNameFragment = lowerCaseMessage.replace(/.*(que productos hay en|que hay en)\s*/, '').trim();
         categoryNameFragment = normalizeText(removeStopWords(categoryNameFragment.replace(/[^\w\s]/gi, '')));
-
-        console.log(`Category name fragment: "${categoryNameFragment}"`);
 
         if (categoryNameFragment === '') {
             return "Por favor, especifica la categoría que deseas consultar.";

@@ -10,36 +10,36 @@ async function main() {
       {
         trigger: 'ayuda',
         reply: `¡Hola! Puedes preguntar al chatbot:\n
-Precio de un producto: 'Precio [nombre del producto].'\n
-Productos en una categoría: 'Tienen [nombre de la categoría].'\n
-Categorías disponibles: '¿Cuáles son las categorías?'\n
-Tipo de productos en una categoría: '¿Qué productos hay en [nombre de la categoría]?\n\n
-¡Espero que esto te ayude!'`
+          Precio de un producto: 'Precio [nombre del producto].'\n
+          Productos en una categoría: 'Tienen [nombre de la categoría].'\n
+          Categorías disponibles: '¿Cuáles son las categorías?'\n
+          Tipo de productos en una categoría: '¿Qué productos hay en [nombre de la categoría]?\n\n
+          ¡Espero que esto te ayude!'`
       },
       {
         trigger: 'ubicacion',
         reply: `Nuestra tienda está ubicada en: Avenida Central, San José, Costa Rica.\n
-Puedes visitarnos de lunes a sábado de 10:00 a 18:00.`
+          Puedes visitarnos de lunes a sábado de 10:00 a 18:00.`
       },
       {
         trigger: 'horario',
         reply: `Nuestro horario de atención es de lunes a sábado de 10:00 a 18:00.\n
-Estamos cerrados los domingos.`
+          Estamos cerrados los domingos.`
       },
       {
         trigger: 'contacto',
         reply: `Puedes contactarnos al teléfono: +506 1234 5678.\n
-O enviarnos un correo electrónico a: contacto@tiendagaming.cr`
+          O enviarnos un correo electrónico a: contacto@tiendagaming.cr`
       },
       {
         trigger: 'informacion',
         reply: `Somos una tienda especializada en artículos gaming, incluyendo laptops, celulares, monitores, mouse, teclados y headsets.\n
-Ofrecemos productos de las mejores marcas con garantía y servicio al cliente de calidad.`
+          Ofrecemos productos de las mejores marcas con garantía y servicio al cliente de calidad.`
       },
       {
         trigger: 'devoluciones',
         reply: `Si necesitas devolver un producto, por favor, contacta a nuestro servicio de atención al cliente.\n
-Asegúrate de tener el recibo de compra y el producto en su estado original.`
+          Asegúrate de tener el recibo de compra y el producto en su estado original.`
       },
     ],
   });
