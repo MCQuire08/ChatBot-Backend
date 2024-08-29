@@ -9,16 +9,22 @@ interface LoginData {
   password: string;
 }
 
-export const loginUser = async (data: LoginData) => {
+export const loginUser = async (data: LoginData): Promise<{ token: string }> => {
+  const { email, password } = data;
+
+  if (!email || !password) {
+    throw new Error('Email and password must be provided');
+  }
+
   const user = await prisma.user.findUnique({
-    where: { email: data.email },
+    where: { email: email },
   });
 
   if (!user || !user.password) {
     throw new Error('Invalid email or password');
   }
 
-  const isPasswordValid = await bcrypt.compare(data.password, user.password);
+  const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
     throw new Error('Invalid email or password');

@@ -66,6 +66,18 @@ async function main() {
       { name: 'Razer Kraken ', description: 'V3 hypersense', price: 59000, stock: 10, category: 'Headset' },
     ],
   });
+
+  await prisma.user.upsert({
+    where: { email: 'admin@example.com' },
+    update: {},
+    create: {
+      name: 'Admin',
+      email: 'admin@example.com',
+      password: '$2a$10$YjhWCpsso1UnrpXwcxnqJeGK1NCOvq2Fdkvqh8CgYeqVNuH1rxZAe',
+    },
+  });
+
+  console.log('Datos iniciales creados');
 }
 
 main()
